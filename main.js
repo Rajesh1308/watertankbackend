@@ -4,6 +4,8 @@ const express = require("express");
 const http = require("http");
 const { Server } = require("socket.io");
 const cors = require("cors");
+const axios = require('axios');
+
 
 // MQTT Configuration
 const MQTT_BROKER = "fa462ba4ab664fe6a8a9c40b953e889f.s1.eu.hivemq.cloud";
@@ -26,6 +28,8 @@ const dbClient = new Client({
 // Express & Socket.io setup
 const app = express();
 app.use(cors());
+app.use(express.json()); // Add this line to parse JSON requests
+
 const server = http.createServer(app);
 const io = new Server(server);
 
@@ -169,6 +173,26 @@ app.get("/api/pump/:pumpId", async (req, res) => {
   } catch (err) {
     console.error("Error fetching pump data:", err);
     res.status(500).send("Internal Server Error");
+  }
+});
+
+
+app.post('/send-sms', async (req, res) => {
+  try {
+    const { mobiles, var1, var2 } = req.body;
+    const apiKey = "PKMR8XCfrQ6n";
+    const url = "https://www.circuitdigest.cloud/send_sms?ID=105";
+
+    const response = await axios.post(url, { mobiles, var1, var2 }, {
+      headers: {
+        Authorization: apiKey,
+        "Content-Type": "application/json",
+      },
+    });
+
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 });
 
