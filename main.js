@@ -15,10 +15,10 @@ const MQTT_TOPICS = ["project/pump/+/status", "project/tank/+/level", "project/w
 
 // PostgreSQL Configuration
 const dbClient = new Client({
-  host: 'dpg-cvbd2bt6l47c73ac19qg-a.oregon-postgres.render.com',
-  user: 'priyanga',
-  password: 'opUHlB9AG9U4EDKRU8eBhLD16yODookI',
-  database: 'watertankdb',
+  host: 'dpg-d04890i4d50c739trd80-a.oregon-postgres.render.com',
+  user: 'watertankdb_ytz2_user',
+  password: '9coZfOpFpAFdfYnrcPCprwZinWffflaz',
+  database: 'watertankdb_ytz2',
   port: 5432,
   ssl: {
     rejectUnauthorized: true,
